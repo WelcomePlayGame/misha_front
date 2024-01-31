@@ -1,0 +1,107 @@
+body
+    background: rgb(255,255 ,255)
+    margin: 0
+    padding: 0
+.header
+    display: flex
+    justify-content: space-around
+    padding-top: 10px
+.sub_header
+    padding-top: 30px
+.wrapper_header
+    background: linear-gradient(to bottom right, rgba(195, 226, 194, 0.8), rgba(195, 226, 194, 0.4))
+    width: 100%
+    height: 170px
+    border-bottom: none
+.search_home
+    width: 250px
+    height: 40px
+    border-radius: 5px
+    padding-right: 30px
+    text-align: center
+.search_container
+    position: relative
+.search-icon
+    position: absolute
+    top: 50%
+    right: 10px
+    transform: translateY(-50%)
+    width: 20px
+    height: 20px
+    fill: #555
+    cursor: pointer
+.header_humburger
+    span
+        display: block
+        height: 3px
+        width: 35px
+        background: #fff
+        margin-bottom: 2px
+        transition: 0.5s all
+        cursor: pointer
+    &_active
+        span
+            margin-bottom: -2px
+            transform: rotate(45deg)
+            &:first-child
+                transform: rotate(-45deg)
+                &:nth-child(2)
+                    display: none
+                &:last-child
+                    transform: rotate(45deg)
+
+.header_humburger_container
+    display: flex
+    justify-content: space-around
+    align-items: baseline
+    background: var(--color_rgb_205_141_122)
+    padding: 7px
+    border-radius: 5px
+.catalog_span
+    font-size: var(--font_size_22)
+    padding-left: 10px
+    color: var(--color_FFF)
+    cursor: pointer
+.basket_container
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 150px
+    cursor: pointer
+    &:hover
+        background: rgba(199, 200, 204, 0.3 )
+        border-radius: 5px
+.basket_svg
+    width: 24px
+    height: auto
+.basket_span
+    font-size: var(--font_size_22)
+    margin-left: 10px
+.pop_catalog_container
+    display: none
+    border-radius: 5px
+    &_active
+        display: block
+        position: absolute
+        width: 76%
+        max-height: 100%
+        min-height: 200px
+        z-index: 100
+        background: rgb(255,255 ,255 )
+        top: 57px
+        border: 1px solid #ccc
+.sub_header_ul
+    display: flex
+    justify-content: space-around
+    list-style: none
+    padding: 0
+    margin: 0
+    .sub_header_li
+        display: inline-block
+        .sub_header_li_cicle
+            display: block
+            width: 50px
+            height: 50px
+            border-radius: 50%
+            background-color: #fff
+            border: 1px solid rgba(199, 200, 204, 0.2 )
