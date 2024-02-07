@@ -11,7 +11,7 @@ body
 .wrapper_header
     background: linear-gradient(to bottom right, rgba(195, 226, 194, 0.8), rgba(195, 226, 194, 0.4))
     width: 100%
-    height: 170px
+    height: 100px
     border-bottom: none
 .search_home
     width: 250px
@@ -93,15 +93,23 @@ body
 .sub_header_ul
     display: flex
     justify-content: space-around
+    align-items: center
     list-style: none
     padding: 0
     margin: 0
     .sub_header_li
-        display: inline-block
-        .sub_header_li_cicle
-            display: block
-            width: 50px
-            height: 50px
-            border-radius: 50%
-            background-color: #fff
-            border: 1px solid rgba(199, 200, 204, 0.2 )
+        display: flex
+        flex-direction: column
+        align-items: center
+        cursor: pointer
+    .sub_header_li_cicle
+        display: flex
+        flex-direction: column
+        align-items: center
+        width: 50px
+        height: 50px
+        border-radius: 50%
+        background-color: #fff
+        border: 1px solid rgba(199, 200, 204, 0.2 )
+    .svg_subheader
+        width: 46px
