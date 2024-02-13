@@ -4,10 +4,12 @@ import addOrGet from "../../../helper/method_api";
 import url from "../../../helper/conf";
 import Product from "../../classes/Product";
 import Category from "../../classes/Category";
+import ReactQuill from "react-quill";
+import { toast } from "react-toastify";
 const AddProduct = () => {
   const [title, setTitle] = useState(``);
   const [cost, setCost] = useState<number>(0);
-  const [size, setSize] = useState(``);
+  const [desribe, setDesribe] = useState(``);
   const [new_cost, setNew_cost] = useState<number>(0);
   const [promotion, setPromotion] = useState(false);
   const [category_id, setCategory] = useState<string>();
@@ -27,13 +29,24 @@ const AddProduct = () => {
     const product = new Product(
       title,
       cost,
-      size,
+      desribe,
       new_cost,
       promotion,
       category
     );
 
     addOrGet(`${url.url}${url.product}${url.add}`, `post`, product, photos);
+  };
+  const handleSetPromotion = () => {
+    if (new_cost !== 0 && new_cost < cost) {
+      setPromotion(true);
+      toast.info("Добавили акційний товар");
+    } else {
+      setPromotion(false);
+      toast.error(
+        "Варість акційного товара не може бути 0 або більше базової вартості"
+      );
+    }
   };
   return (
     <section className="addproduct_wrapper">
@@ -49,15 +62,9 @@ const AddProduct = () => {
               onChange={(e) => setTitle(e.target.value)}
               id="title"
             />
-            <label htmlFor="size">Розмір продукту</label>
-            <input
-              type="text"
-              name="size"
-              value={size}
-              placeholder="Розмір"
-              onChange={(e) => setSize(e.target.value)}
-              id="size"
-            />
+            <button type="submit" className="btn_add_product">
+              Зберегти
+            </button>
           </div>
           <div className="addproduct_input_cheked">
             <label htmlFor="cost">Вартість</label>
@@ -84,9 +91,10 @@ const AddProduct = () => {
             <input
               type="checkbox"
               name="promotion"
-              onChange={(e) => setPromotion(e.target.checked)}
+              onChange={handleSetPromotion}
               id="promotion"
             />
+
             <SelectCategory onChange={(e) => setCategory(e.target.value)} />
           </div>
           <div className="addproduct_input_cheked">
@@ -99,9 +107,22 @@ const AddProduct = () => {
             />
           </div>
         </div>
-        <button type="submit" className="btn_add_product">
-          Зберегти
-        </button>
+        <label>Добавити опис</label>
+        <ReactQuill
+          value={desribe}
+          placeholder="Тут можеш написати опис продукту"
+          theme="snow"
+          bounds={".app"}
+          onChange={setDesribe}
+          modules={{
+            toolbar: [
+              [{ header: [1, 2, 3, 4, false] }],
+              ["bold", "italic", "underline", "strike"],
+              [{ list: "ordered" }, { list: "bullet" }],
+              ["clean"],
+            ],
+          }}
+        />
       </form>
     </section>
   );

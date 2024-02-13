@@ -10,10 +10,13 @@ import ProductPage from "./component/ProductPage";
 import store from "./store/store";
 import { Provider } from "react-redux";
 import Order from "./component/Order";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Success from "./component/Success";
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Provider store={store}>
         <BrowserRouter>
           <Header />
@@ -24,6 +27,7 @@ function App() {
             <Route path="/admin/*" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/success" element={<Success />} />
           </Routes>
         </BrowserRouter>
       </Provider>

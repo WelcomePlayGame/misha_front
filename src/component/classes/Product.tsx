@@ -2,21 +2,21 @@ import Category from "./Category";
 class Product {
   private title: string;
   private cost: number;
-  private size: string;
+  private desribe: string;
   private new_cost: number;
   private promotion: boolean;
   private category: Category;
   constructor(
     title: string,
     cost: number,
-    size: string,
+    desribe: string,
     new_cost: number,
     promotion: boolean,
     category: Category
   ) {
     this.title = title;
     this.cost = cost;
-    this.size = size;
+    this.desribe = desribe;
     this.new_cost = new_cost;
     this.promotion = promotion;
     this.category = category;
@@ -35,11 +35,11 @@ class Product {
     this.cost = value;
   }
 
-  get getSize() {
-    return this.size;
+  get getDesribe() {
+    return this.desribe;
   }
-  set setSize(value: string) {
-    this.size = value;
+  set setDesribe(value: string) {
+    this.desribe = value;
   }
   get getNew_cost() {
     return this.new_cost;

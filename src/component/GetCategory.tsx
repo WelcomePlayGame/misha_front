@@ -11,11 +11,17 @@ const GetCategory = () => {
       "get"
     ).then((response) => setCategory(response.data));
   }, []);
+  function capitalizeFirstLetter(text: string) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
   return (
     <section className="getcategory_container">
       {categories.map((category) => (
         <div key={category.id} className="getcategory_box">
-          <span className="getcategory">{category.title}</span>
+          <span className="getcategory">
+            {capitalizeFirstLetter(category.title)}
+          </span>
         </div>
       ))}
     </section>

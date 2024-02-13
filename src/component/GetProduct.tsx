@@ -14,7 +14,7 @@ import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
-interface IPoroduct {
+interface IProduct {
   id: number;
   title: string;
   cost: number;
@@ -25,13 +25,13 @@ interface IPoroduct {
   photo: string[];
 }
 const GetProduct = () => {
-  const [products, setProduct] = useState<IPoroduct[]>([]);
+  const [products, setProduct] = useState<IProduct[]>([]);
   const dispatch = useDispatch();
-  const handleAddtoCart = (product: IPoroduct) => {
+  const handleAddtoCart = (product: IProduct) => {
     dispatch(addToCart(product));
   };
   useEffect(() => {
-    addOrGet<IPoroduct[]>(`${url.url}${url.product}`, `get`).then((response) =>
+    addOrGet<IProduct[]>(`${url.url}${url.product}`, `get`).then((response) =>
       setProduct(response.data)
     );
   }, []);

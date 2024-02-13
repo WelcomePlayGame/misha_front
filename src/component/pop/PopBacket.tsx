@@ -5,7 +5,7 @@ import { removeFromCart } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
 import Category from "../classes/Category";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 interface IPop_Backet {
   isOpenBacket: boolean;
   setIsOpenBacket: (par: boolean) => void;
@@ -29,12 +29,18 @@ const PopBacket: React.FC<IPop_Backet> = ({
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
   let sum = 0; // Переменная для хранения общей суммы стоимости товаров в корзине
-
+  const navigate = useNavigate();
   // Функция для удаления товара из корзины
   const handleDeleteItem = (item: IPoroduct) => {
     dispatch(removeFromCart(item));
   };
-
+  const handleAddSum = () => {
+    navigate("/order", {
+      state: {
+        sum: sum,
+      },
+    });
+  };
   return (
     <section className="wrapper_backet">
       <div className={`backet_pop ${isOpenBacket ? "backet_pop_active" : ""}`}>
@@ -100,7 +106,11 @@ const PopBacket: React.FC<IPop_Backet> = ({
                 );
               })}
               <div>До сплати без Доставки: {sum} грн</div>
-              <Link to={"/order"} className="backet_item_order_btn">
+              <Link
+                to={"/order"}
+                className="backet_item_order_btn"
+                onClick={handleAddSum}
+              >
                 Оформити Замовлення
               </Link>
             </div>
