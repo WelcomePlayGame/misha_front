@@ -1,5 +1,6 @@
 import Category from "./Category";
 class Product {
+  private id: number;
   private title: string;
   private cost: number;
   private desribe: string;
@@ -7,6 +8,7 @@ class Product {
   private promotion: boolean;
   private category: Category;
   constructor(
+    id: number,
     title: string,
     cost: number,
     desribe: string,
@@ -14,12 +16,19 @@ class Product {
     promotion: boolean,
     category: Category
   ) {
+    this.id = id;
     this.title = title;
     this.cost = cost;
     this.desribe = desribe;
     this.new_cost = new_cost;
     this.promotion = promotion;
     this.category = category;
+  }
+  get getId() {
+    return this.id;
+  }
+  set setId(value: number) {
+    this.id = value;
   }
   get getTitle() {
     return this.title;

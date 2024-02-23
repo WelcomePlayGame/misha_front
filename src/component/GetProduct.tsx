@@ -14,6 +14,8 @@ import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 interface IProduct {
   id: number;
   title: string;
@@ -21,21 +23,42 @@ interface IProduct {
   size: string;
   new_cost: number;
   promotion: boolean;
-  category: Category;
+  category: {
+    title: string;
+  };
   photo: string[];
 }
 const GetProduct = () => {
   const [products, setProduct] = useState<IProduct[]>([]);
   const dispatch = useDispatch();
+  const category = useSelector(
+    (state: RootState) => state.category.selectedCategory
+  );
   const handleAddtoCart = (product: IProduct) => {
     dispatch(addToCart(product));
   };
+  // useEffect(() => {
+  //   addOrGet<IProduct[]>(`${url.url}${url.product}`, `get`).then((response) =>
+  //     setProduct(response.data)
+  //   );
+  // }, []);
   useEffect(() => {
-    addOrGet<IProduct[]>(`${url.url}${url.product}`, `get`).then((response) =>
-      setProduct(response.data)
-    );
-  }, []);
-
+    addOrGet<IProduct[]>(`${url.url}${url.product}`, `get`).then((response) => {
+      if (category) {
+        const filteredProducts = response.data.filter((product) => {
+          console.log(category);
+          console.log(product);
+          let value = product.category.title;
+          console.log(value);
+          return value === category;
+        });
+        setProduct(filteredProducts);
+        console.log(filteredProducts);
+      } else {
+        setProduct(response.data);
+      }
+    });
+  }, [category]);
   return (
     <div className="getProduct_container">
       {products.map((product) => (

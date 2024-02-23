@@ -6,7 +6,8 @@ import Product from "../../classes/Product";
 import Category from "../../classes/Category";
 import ReactQuill from "react-quill";
 import { toast } from "react-toastify";
-const AddProduct = () => {
+import { useParams } from "react-router-dom";
+const UpdateProduct = () => {
   const [title, setTitle] = useState(``);
   const [cost, setCost] = useState<number>(0);
   const [desribe, setDesribe] = useState(``);
@@ -14,7 +15,7 @@ const AddProduct = () => {
   const [promotion, setPromotion] = useState(false);
   const [category_id, setCategory] = useState<string>();
   const [photos, setPhotos] = useState<File[]>([]);
-
+  const { id } = useParams();
   const handleSelectedFiles = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectFiles = Array.from(e.target.files);
@@ -27,7 +28,7 @@ const AddProduct = () => {
     const category = new Category(Number(category_id));
 
     const product = new Product(
-      0,
+      Number(id),
       title,
       cost,
       desribe,
@@ -36,9 +37,9 @@ const AddProduct = () => {
       category
     );
 
-    addOrGet(`${url.url}${url.product}${url.add}`, `post`, product, photos);
+    addOrGet(`${url.url}${url.product}${url.update}`, `put`, product, photos);
     toast.info(`Товар Добавленно`);
-    setTimeout(() => window.location.reload(), 2000);
+    // setTimeout(() => window.location.reload(), 2000);
   };
   const handleSetPromotion = () => {
     if (new_cost !== 0 && new_cost < cost) {
@@ -131,4 +132,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

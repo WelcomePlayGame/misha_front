@@ -5,6 +5,7 @@ interface Iurl {
   delete: string;
   product: string;
   order: string;
+  update: string;
 }
 const url: Iurl = {
   url: "http://localhost:8080",
@@ -13,6 +14,7 @@ const url: Iurl = {
   delete: "/delete",
   product: "/api/product",
   order: "/api/order",
+  update: "/update",
 };
 
 export default url;
