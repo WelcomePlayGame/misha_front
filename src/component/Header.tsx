@@ -5,6 +5,7 @@ import PopCatalog from "./pop/PopCatalog";
 import PopBacket from "./pop/PopBacket";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { Helmet } from "react-helmet";
 const Header: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
   const [isOpenBacket, setOpenBacket] = useState(false);
@@ -22,6 +23,13 @@ const Header: React.FC = () => {
   const items = useSelector((state: RootState) => state.cart.items);
   return (
     <>
+      <Helmet>
+        <title>Культ стилю біля тебе - MishaShop</title>
+        <meta
+          name="description"
+          content="Культ стилю біля тебе - MishaShop. З Вас гроші, з нас якість"
+        />
+      </Helmet>
       {!isHeader && (
         <section className="wrapper_header ">
           <menu className="">

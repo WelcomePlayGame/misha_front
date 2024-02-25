@@ -8,7 +8,8 @@ interface Iurl {
   update: string;
 }
 const url: Iurl = {
-  url: "http://localhost:8080",
+  // url: "http://localhost:8080",
+  url: "https://smartchoicecn.com.ua:7070",
   category: "/api/category",
   add: "/add",
   delete: "/delete",

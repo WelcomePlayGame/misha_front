@@ -14,6 +14,8 @@ import { Pagination } from "swiper/modules";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
 import GetProduct from "./GetProduct";
+import ZoomImage from "./zoomimage/ZoomImage";
+import { Helmet } from "react-helmet";
 interface IProduct {
   id: number;
   title: string;
@@ -42,59 +44,70 @@ const ProductPage = () => {
     dispatch(addToCart(product));
   };
   return (
-    <section className="page_product_container">
-      <div className="page_product_box">
-        <div className="page_product_swiper ">
-          <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
-            {product?.photo.map((photo, index) => (
-              <SwiperSlide key={index}>
-                <img src={photo} alt={photo} className="page_product_img" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <div className="page_product_des_container">
-          <h2 className="page_product_des_container_el">{product?.title}</h2>
-          <span className="page_product_des_container_el">
-            {product?.promotion ? (
-              <div className="if_new_cost">
-                <span className="old_cost">{product?.cost} грн</span>
-                <span className="new_cost">{product?.new_cost} грн</span>
-              </div>
-            ) : (
-              <div>
-                <span className="new_cost">{product?.cost} грн</span>
-              </div>
-            )}
-          </span>
-          <span className="page_product_des_container_el">
-            <button
-              className="page_product_des_container_el_add_backet"
-              onClick={() => handleAddtoCart(product as IProduct)}
+    <>
+      <Helmet>
+        <title>{product?.title}</title>
+        <meta name="description" content={product?.desribe} />
+      </Helmet>
+      <section className="page_product_container">
+        <div className="page_product_box">
+          <div className="page_product_swiper ">
+            <Swiper
+              pagination={true}
+              modules={[Pagination]}
+              className="mySwiper"
             >
-              Додати в кошик
-            </button>
-          </span>
-          <span className="page_product_des_container_el">
-            <Link
-              to="/order"
-              className="btn_page_order"
-              onClick={() => handleAddtoCart(product as IProduct)}
-            >
-              Замовити
-            </Link>
-          </span>
+              {product?.photo.map((photo, index) => (
+                <SwiperSlide key={index}>
+                  {/* <img src={photo} alt={photo} className="page_product_img" /> */}
+                  <ZoomImage src={photo} alt={`Photo ${index}`} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+          <div className="page_product_des_container">
+            <h2 className="page_product_des_container_el">{product?.title}</h2>
+            <span className="page_product_des_container_el">
+              {product?.promotion ? (
+                <div className="if_new_cost">
+                  <span className="old_cost">{product?.cost} грн</span>
+                  <span className="new_cost">{product?.new_cost} грн</span>
+                </div>
+              ) : (
+                <div>
+                  <span className="new_cost">{product?.cost} грн</span>
+                </div>
+              )}
+            </span>
+            <span className="page_product_des_container_el">
+              <button
+                className="page_product_des_container_el_add_backet"
+                onClick={() => handleAddtoCart(product as IProduct)}
+              >
+                Додати в кошик
+              </button>
+            </span>
+            <span className="page_product_des_container_el">
+              <Link
+                to="/order"
+                className="btn_page_order"
+                onClick={() => handleAddtoCart(product as IProduct)}
+              >
+                Замовити
+              </Link>
+            </span>
+          </div>
+          <div className=" page_product_div">
+            <div dangerouslySetInnerHTML={createMarkup(product?.desribe)} />
+          </div>
         </div>
-        <div className=" page_product_div">
-          <div dangerouslySetInnerHTML={createMarkup(product?.desribe)} />
-        </div>
-      </div>
 
-      <div className="other_product_page">
-        <h3>Інші товари</h3>
-        <GetProduct />
-      </div>
-    </section>
+        <div className="other_product_page">
+          <h3>Інші товари</h3>
+          <GetProduct />
+        </div>
+      </section>
+    </>
   );
 };
 
