@@ -22,7 +22,7 @@ const ZoomImage: React.FC<ZoomImageProps> = ({ src, alt }) => {
       onMouseMove={handleMouseMove}
       style={{ backgroundImage: `url(${src})`, backgroundPosition }}
     >
-      <img src={src} alt={alt} />
+      <img src={src} alt={alt} className="page_product_img" />
     </figure>
   );
 };

@@ -80,6 +80,9 @@ const ProductPage = () => {
               )}
             </span>
             <span className="page_product_des_container_el">
+              Доставка по Україні: 1-3 дні
+            </span>
+            <span className="page_product_des_container_el">
               <button
                 className="page_product_des_container_el_add_backet"
                 onClick={() => handleAddtoCart(product as IProduct)}
