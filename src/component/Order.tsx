@@ -23,7 +23,8 @@ const Order = () => {
   const [father_name, setFather_name] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
-  const items = useSelector((state: RootState) => state.cart.items);
+  // const items = useSelector((state: RootState) => state.cart.items);
+  const items: IPoroduct[] = JSON.parse(localStorage.getItem("cart") || "[]");
   const [products, setProducts] = useState<IPoroduct[]>(items);
   let sum = 0;
 
@@ -101,7 +102,7 @@ const Order = () => {
             </div>
           </form>
         </div>
-        <div>
+        <div className="menu_order_box_container">
           {items.map((item, index) => {
             const costToUse = item.new_cost !== 0 ? item.new_cost : item.cost;
             sum += costToUse;

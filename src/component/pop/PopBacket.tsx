@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { removeFromCart } from "../../store/CartSlice";
+import { addToCart, removeFromCart } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
 import Category from "../classes/Category";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 interface IPop_Backet {
   isOpenBacket: boolean;
   setIsOpenBacket: (par: boolean) => void;
@@ -27,12 +28,44 @@ const PopBacket: React.FC<IPop_Backet> = ({
   setIsOpenBacket,
 }) => {
   const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.cart.items);
-  let sum = 0; // Переменная для хранения общей суммы стоимости товаров в корзине
+  // const items = useSelector((state: RootState) => state.cart.items);
+  const items: IPoroduct[] = JSON.parse(localStorage.getItem("cart") || "[]");
+  let sum = 0;
   const navigate = useNavigate();
-  // Функция для удаления товара из корзины
+  const [cartItems, setCartItems] = useState<IPoroduct[]>([]);
+  // const handleDeleteItem = (item: IPoroduct) => {
+  //   // dispatch(removeFromCart(item));
+  //   const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+  //   // Фильтруем элементы корзины, исключая удаляемый элемент
+  //   const updatedCart = storedCart.filter(
+  //     (cartItem: IPoroduct) => cartItem.id !== item.id
+  //   );
+
+  //   // Обновляем значение корзины в localStorage
+  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
+  // };
+  useEffect(() => {
+    // Получаем текущее значение корзины из localStorage при монтировании компонента
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCartItems((prevCartItems) => {
+      // Проверяем, отличаются ли новые элементы от предыдущих
+      if (JSON.stringify(storedCart) !== JSON.stringify(prevCartItems)) {
+        return storedCart;
+      } else {
+        return prevCartItems;
+      }
+    });
+  }, []);
   const handleDeleteItem = (item: IPoroduct) => {
-    dispatch(removeFromCart(item));
+    // Фильтруем элементы корзины, исключая удаляемый элемент
+    const updatedCart = cartItems.filter(
+      (cartItem: IPoroduct) => cartItem.id !== item.id
+    );
+
+    // Обновляем значение корзины в localStorage и в состоянии
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCartItems(updatedCart);
   };
   const handleAddSum = () => {
     navigate("/order", {
@@ -41,6 +74,7 @@ const PopBacket: React.FC<IPop_Backet> = ({
       },
     });
   };
+
   return (
     <section className="wrapper_backet">
       <div className={`backet_pop ${isOpenBacket ? "backet_pop_active" : ""}`}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Search from "./search/Search";
 import PopCatalog from "./pop/PopCatalog";
@@ -6,6 +6,17 @@ import PopBacket from "./pop/PopBacket";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Helmet } from "react-helmet";
+import Category from "./classes/Category";
+interface IPoroduct {
+  id: number;
+  title: string;
+  cost: number;
+  size: string;
+  new_cost: number;
+  promotion: boolean;
+  category: Category;
+  photo: string[];
+}
 const Header: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
   const [isOpenBacket, setOpenBacket] = useState(false);
@@ -20,7 +31,9 @@ const Header: React.FC = () => {
   const handleOpenIsBacket = () => {
     setOpenBacket(!isOpenBacket);
   };
-  const items = useSelector((state: RootState) => state.cart.items);
+  // const items = useSelector((state: RootState) => state.cart.items);
+  const items: IPoroduct[] = JSON.parse(localStorage.getItem("cart") || "[]");
+
   return (
     <>
       <Helmet>
